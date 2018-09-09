@@ -1,0 +1,567 @@
+\documentclass[12pt]{article}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand\inv[1]{#1\raisebox{1.15ex}{$\scriptscriptstyle-\!1$}}
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+%\renewcommand{\qedsymbol}{\filledbox}
+ 
+\title{CS601 - Mathematics for Computer Science }%replace X with the appropriate number
+\author{\textbf{Assignment Solutions}\\ \\ Submitted by:\\ \\Lt Cdr Rahul Raj\\ Roll No 18111053\\ %replace with your name
+} %if necessary, replace with your course title
+
+\maketitle
+
+\clearpage
+\section{Question}
+Prove that every matrix in $GL_2 ({\rm I\!R})$ is a product of at most 4 elementary matrices.
+\subsection{Solution}
+Elementary Matrix E when left multiplied by a matrix G,  either of the  following three row operations are performed: -\\ \\
+\noindent
+\tab (a) - Replace the $i^{th}$ Row $X_i$ by $X_i + aX_j$ or add $a \times row\ j\ to\ row\ i$\\
+\noindent
+\tab (b) - Interchange $row\ i$ and $row\ j$\\
+\noindent
+\tab (c) - Multiply $ row\ i$ by a nonzero scalar\\
+
+These operations are termed as elementary row operations. Every Matrix in $G$ can be reduced to $\bar{G}$ through series of left multiplication by elementary matrices so that following conditions are satisfied: -\\ \\
+\noindent
+\tab (a) - First non zero entry in every row is 1. This is called pivot\\
+\noindent
+\tab (b) - First non-zero entry of row $i\ +\ 1$ is to the right of first non-zero entry of row $i$\\
+\noindent
+\tab (c) - The entries above a pivot are zero \\
+\\
+\noindent
+\tab Matrix thus obtained is called reduced row echelon matrix. In this particular case, $G$ is a square matrix of size 2. Every square matrix in its reduced row echelon form is either an Identity Matrix or bottom row is zero. $G$ can be reduced to identity by series of elementary operations $E_1, E_2,...,E_k$. It is to prove that k $\leq$ 4. \\
+\noindent
+\tab  
+\[Let\ G = \begin{bmatrix}
+  a & b \\
+  c & d
+ \end{bmatrix}\]
+\\
+\[ \textnormal{For Elementary Matrix $E_1$=} \left[ \begin{array}{cc}
+  ^1/_a & 0 \\
+  0 & 1
+\end{array} \right]
+\textnormal{, row reduction } E_1G = G_1 =
+\left[ \begin{array}{cc}
+1  & ^b/_a \\
+  c & d
+\end{array} \right]
+\]
+
+\[ \textnormal{For Elementary Matrix $E_2$=} \left[ \begin{array}{cc}
+  1 & 0 \\
+  0 & ^1/_d
+\end{array} \right]
+\textnormal{, row reduction } E_2G_1 = G_2 =
+\left[ \begin{array}{cc}
+1  & ^b/_a \\
+  ^c/_d & d
+\end{array} \right]
+\]
+
+\[ \textnormal{For Elementary Matrix $E_3$=} \left[ \begin{array}{cc}
+  1 & 0 \\
+  ^-c/_d & 1
+\end{array} \right]
+\textnormal{, row reduction } E_2G_2 = G_3 =
+\left[ \begin{array}{cc}
+1  & ^b/_a \\
+  0 & (1-^{bc}/_{ad})
+\end{array} \right]
+\]
+
+\[ \textnormal{For Elementary Matrix $E_4$=} \left[ \begin{array}{cc}
+  1 & 0 \\
+  0 & (1-^{bc}/_{ad})^{-1}
+\end{array} \right]
+\textnormal{, row reduction } E_2G_3 = G_4 =
+\left[ \begin{array}{cc}
+  1 & 0 \\
+  0 & 1
+\end{array} \right]
+\]
+\noindent
+\tab Therefore it is seen that we can get Identity Matrix, I by utmost four elementary operations on Matrix $G$
+$$
+E_4E_3E_2E_1G = I
+$$
+\noindent
+\tab Multiplying both sides of this equation on the left by $E_1^{-1}E_2^{-1}E_3^{-1}E_4^{-1}$ we get 
+$$
+G = E_1^{-1}E_2^{-1}E_3^{-1}E_4^{-1}
+$$
+\noindent
+\tab Since inverse of an elementary matrix is elementary, this shows that $G$ is a product of utmost four elementary matrices. \footnote{Chapter 1 - 'Matrix Operations' of Book by Micheal Artin: \textit{Algebra}} This completes the proof.
+
+\clearpage
+\section{Question}
+A matrix A is said to be symmetric if $A = A^T$ . Show that the inverse of an invertible symmetric matrix is also symmetric.
+\subsection{Solution}
+\noindent
+\tab If $A$ is \textit{Symmetric} Matrix, then 
+\begin{equation}
+AA^{-1} = A^{-1}A = I
+\end{equation}
+\noindent
+\begin{align*}
+	I &= I^{T} \\
+    (AA^{-1}) &= (AA^{-1})^T
+\end{align*}
+\noindent
+\tab As per property of Transpose of any Matrix A and B, ($AB$)$^T$ = $B^TA^T$. Therefore,
+\noindent 
+\begin{align*}
+	(AA^{-1}) &= (A^{-1})^T A^T
+\end{align*}
+\noindent 
+\tab As per Equation (1), substituting left hand side gives
+\begin{align*}
+	(A^{-1}A) &= (A^{-1})^T A^T
+\end{align*}
+\noindent 
+\tab Right multiplying above equation on both sides with $A^{-1}$ gives
+\begin{align*}
+	(A^{-1}A)A^{-1} &= (A^{-1})^T A^T A^{-1}
+\end{align*}
+\noindent 
+\tab Since $A = A^T$, substituting the same on right hand side gives
+\begin{align*}
+	(A^{-1}A)A^{-1} &= (A^{-1})^T A A^{-1}\\
+    A^{-1}(AA^{-1}) &= (A^{-1})^T (A A^{-1})\\
+    A^{-1}(I) &= (A^{-1})^T (I)\\
+    A^{-1} &= (A^{-1})^T
+\end{align*}
+\noindent
+\tab \textbf{Hence proved that $A^{-1}$ is also same as ($A^{-1}$)$^T$ }. That is inverse of invertible symmetric matrix is also symmetric. \footnote{https://math.stackexchange.com/}
+
+\clearpage
+\section{Question}
+Show that every permutation matrix is a product of transpositions.
+\subsection{Solution}
+\noindent
+\tab Permutation is a bijective map $P$ from Set $S$ to itself: $ p: S \rightarrow S$. In the function notation of $P$, $P(X)$ denotes permutation of $P$ on the element $x$. Operation of left multiplication by $P$ is a permutation of row of Matrix. Elementary Matrix of Type $1+e_{i,j}+e_{j,i}-e_{i,i}-e_{j,j}$ will interchange two rows of a matrix by its property.\label{row:op} This Elementary Matrix is one of example of Permutation and they are called \textit{Transpositions}. \\
+
+\noindent
+\tab It is to prove that any permutation  matrix can be expressed as product of basic transpositions. Let $P$ be a permutation matrix for set of elements $S$=$\{x_1,x_2,...,x_n\}$=\{1,2,3,...,n\}. $P$ can be expressed as
+\[ \left[ \begin{array}{ccc}
+  E_1 \\
+  E_2 \\
+  ... \\
+  E_n \\
+\end{array} \right]
+\left[ \begin{array}{ccc}
+  1 \\
+  2 \\
+  ... \\
+  n \\  
+\end{array} \right]
+\textnormal{=} 
+\left[ \begin{array}{ccc}
+  p(1) \\
+  p(2) \\
+  ... \\
+  p(n) \\
+\end{array} \right]
+\]
+\noindent
+\tab where $p(x_i)$ is permutation of set $S$ and $E_i$ be transposition of element $x_i$. We can produce $P$ by sequentially interchanging $p(1)$  and element $1$, then $p(2)$ with element $2$. After the first row interchange operation with permutation matrix $P_{n\times n}$, we get
+
+\[ \left[ \begin{array}{ccc}
+  P_{n\times n}\\
+\end{array} \right]
+\left[ \begin{array}{ccc}
+  1 \\
+  2 \\
+  ... \\
+  P(1)\\
+  ...\\
+  n \\  
+\end{array} \right]
+\textnormal{=} 
+\left[ \begin{array}{ccc}
+  P(1) \\
+  2 \\
+  ... \\
+  1\\
+  ...\\
+  p(n) \\
+\end{array} \right]
+\]
+\noindent
+\tab After this step, we bring $p(2)$ to second position by interchanging with element 2 by another permutation matrix of size $P_{(n-1) \times (n-1)}$
+
+\[ \left[ \begin{array}{ccc}
+  1 & 0\\
+  0 & P_{(n-1) \times (n-1)}\\
+\end{array} \right]
+\left[ \begin{array}{ccc}
+  p(1) \\
+  2 \\
+  ... \\
+  p(2)\\
+  ...\\
+  n \\  
+\end{array} \right]
+\textnormal{=} 
+\left[ \begin{array}{ccc}
+  p(1) \\
+  p(2) \\
+  ... \\
+  1\\
+  ...\\
+  p(n) \\
+\end{array} \right]
+\]
+
+\noindent
+\tab We will continue this process for all n elements of set $S$ and finally we obtain the permutation matrix $P$. Hence we can express the equation as below\\
+
+\[ \textnormal{$E_n,E_{n-1}...E_2E_1$}
+\left[ \begin{array}{cc}
+  1 \\
+  2 \\
+  ... \\
+  n \\
+\end{array} \right]
+\textnormal{=}
+\left[ \begin{array}{cc}
+  p(1) \\
+  p(2) \\
+  ... \\
+  p(n) \\
+\end{array} \right]
+\]
+
+Here $E_i$ can either be Elementary row operation as mentioned above or an Identity Matrix. Recall that Identity matrix is also a permutation where $p(x_i) = x_i$. \\
+
+\noindent
+\tab Hence it is proved that any permutation matrix can be expressed as product of elementary matrices\footnote{http://www1.spms.ntu.edu.sg/~frederique/lecture7ws.pdf} \footnote{ Book by Micheal Artin: \textit{Algebra}} of type $1+e_{i,j}+e_{j,i}-e_{i,i}-e_{j,j}$, which is otherwise called \textit{Transpositions}. There will be utmost n such transpositions are required to form the permutation matrix $P$ 
+$$
+P = E_n,E_{n-1}...E_2E_1
+$$
+\clearpage
+\section{Question}
+Let $V$ be the vector space of functions over the interval $[0, 1]$. Prove that the functions $x^3$, sin $x$ and cos $x$ are linearly independent.
+\subsection{Solution}
+\noindent
+\tab A linear relation of set of vectors $(v_1,v_2,...,v_n)$ is any relation of the form $c_1v_1 + c_2v_2 + ... + c_nv_n = 0$.  An ordered set of vectors $(v_1,v_2,...,v_n)$ is called linearly independent if there is no linear relation  among them in the set, except for the trivial one in which all the coefficients $c_i$ are zero. In other words, $(v_1,v_2,..,v_n)$ are linearly independent if $c_1v_1 + c_2v_2 + ... + c_nv_n = 0$ only when $c_1 = c_2 = ... = c_n = 0$.  \footnote{Book by Micheal Artin: \textit{Algebra}}\\ \\
+\noindent
+\tab Here we have three functions in the vector space $V$, 
+$$
+f_1 = x^3 \tab \tab f_2 = sin x \tab \tab f_3 = cos x
+$$
+\noindent
+\tab Given interval of all these function be in [0 1]. Assuming that given functions are linearly independent, therefore $c_1f_1 + c_2f_2 +c_3f_3 = 0$
+\noindent
+	$$
+	c_1\ x^3 + c_2\ \textnormal{sin}\ x +c_3\  \textnormal{cos}\ x = 0
+    $$
+    \textnormal{\tab Setting value of x = 0. We know that cos $(0)$ = 1 and sin $(0)$ = 0, Therefore,}
+    $$c_1\ (0)+ c_2\ \textnormal{sin}\ (0) + c_3\  \textnormal{cos}\ (0) = 0$$
+    $$c_3 = 0$$
+    \textnormal{\tab Setting value of x = 1. We know that cos $(1)$ = 0.54 and sin $(1)$ = 0.84, Therefore,} 
+    $$c_1\ +\ 0.84\ c_2\ +\ 0.54\ c_3 = 0
+    $$
+    $$c_1\ +0.84\ c_2 = 0 \tab \textnormal{Since $c_3$ = 0}$$
+    $$c_1 = -0.84c_2$$
+    \textnormal{\tab Setting value of x = 0.5. We know that cos $(0.5)$ = 0.88 and sin $(0.5)$ = 0.48, Therefore,} 
+    $$\frac{c_1}{8}\ +\ 0.48\ c_2\ +\ 0.88\ c_3 = 0
+    $$
+    $$\frac{c_1}{8}\ +\ 0.48\ c_2\ = 0  \tab \textnormal{Since $c_3$ = 0}
+    $$
+    $$\frac{-0.84c_2}{8}\ +\ 0.48\ c_2\ = 0  \tab \textnormal{Hence $c_3$ = 0 and thereby $c_2$ is also = 0}
+    $$
+\noindent
+\tab Hence it is proved that the functions $x^3$, sin $x$ and cos $x$ are linearly independent.
+\clearpage
+\section{Question}
+Computing the matrix of change of basis
+\subsection{Solution}
+\noindent
+\tab As per the given setting, the vectors that forms the basis are inferred as following \\ \\
+\noindent
+\tab 
+\textnormal{ $v_1$ = $e_1$ = }
+$\left[ \begin{array}{c}
+  1 \\
+  0 \\
+  0
+\end{array} \right]$
+\textnormal{\ and\ $v_2$ = }
+$\left[ \begin{array}{c}
+  \textnormal{cos} 120 \\
+  \textnormal{sin} 120 \\
+  0 
+\end{array} \right]$
+\textnormal{\ and\ $v_3$ = }
+$\left[ \begin{array}{c}
+  \textnormal{cos} 45 \\
+  0 \\
+  \textnormal{sin} 45 
+\end{array} \right]$
+\\
+\\
+\tab Therefore, new basis B can be written as
+\\ \\
+\tab \tab \textnormal{B = }
+$\left[ \begin{array}{ccc}
+  1 & \textnormal{cos} 120 &\textnormal{cos} 45 \\
+  0 & \textnormal{sin} 120 & 0\\
+  0 & 0& \textnormal{sin} 45  
+\end{array} \right]$
+\textnormal{ = }
+$\left[ \begin{array}{ccc}
+  1 & -\frac{1}{2} & \frac{1}{\sqrt[]{2}} \\
+  0 & -\frac{3}{\sqrt[2]{}} & 0 \\
+  0 & 0 & \frac{1}{\sqrt[]{2}} 
+\end{array} \right]$
+\\
+\noindent
+\tab We can compute the matrix of change of basis explicitly when $V = F^n$ and the old basis is the standard basis E, but where the new basis B is arbitrary. The two bases determine matrices [E] = I and [B] give the matrix equation $I = [B] \times P$. Hence the matrix of change of basis is
+\begin{equation}
+P = [B]^{-1}
+\end{equation}
+\noindent
+\tab In order to find out $[B]^{-1}$,  Row reduction can be performed on augmented matrix $[B|I]$ and the steps are as follows\\ \\
+\noindent
+\tab 
+\textnormal{ Augmented matrix [B | I] = }
+$\left[ \begin{array}{ccc|ccc}
+  1 & -\frac{1}{2} & \frac{1}{\sqrt[]{2}} & 1 & 0 & 0\\
+  0 & \frac{3}{\sqrt[2]{}} & 0 & 0 & 1 & 0\\
+  0 & 0 & \frac{1}{\sqrt[]{2}} &0 & 0 & 1
+  \end{array} \right]$\\ \\ \\
+
+\noindent
+\tab 
+\textnormal{ $R_1 \rightarrow \frac{1}{\sqrt[]{3}} \times R_2 + R_1$}
+$\left[ \begin{array}{ccc|ccc}
+  1 & 0 & \frac{1}{\sqrt[]{2}} & 1 & \frac{1}{\sqrt[]{3}} & 0\\
+  0 & \frac{3}{\sqrt[]{2}} & 0 & 0 & 1 & 0\\
+  0 & 0 & \frac{1}{\sqrt[]{2}} &0 & 0 & 1
+  \end{array} \right]$\\ \\ \\
+
+\noindent
+\tab 
+\textnormal{ $R_1 \rightarrow R_1 - R_3$}
+$\left[ \begin{array}{ccc|ccc}
+  1 & 0 & 0 & 1 & \frac{1}{\sqrt[]{3}} & -1\\
+  0 & \frac{3}{\sqrt[]{2}} & 0 & 0 & 1 & 0\\
+  0 & 0 & \frac{1}{\sqrt[]{2}} &0 & 0 & 1
+  \end{array} \right]$\\ \\ \\
+  
+\noindent
+\tab 
+\textnormal{ $R_2 \rightarrow \frac{2}{\sqrt[]{3}} \times R_2$}
+$\left[ \begin{array}{ccc|ccc}
+  1 & 0 & 0 & 1 & \frac{1}{\sqrt[]{3}} & -1\\
+  0 & 1 & 0 & 0 & \frac{2}{\sqrt[]{3}} & 0\\
+  0 & 0 & \frac{1}{\sqrt[]{2}} &0 & 0 & 1
+  \end{array} \right]$\\ \\ \\
+
+
+\noindent
+\tab 
+\textnormal{ $R_3 \rightarrow \sqrt[]{2} \times R_3$}
+$\left[ \begin{array}{ccc|ccc}
+  1 & 0 & 0 & 1 & \frac{1}{\sqrt[]{3}} & -1\\
+  0 & 1 & 0 & 0 & \frac{2}{\sqrt[]{3}} & 0\\
+  0 & 0 & 1 &0 & 0 & \sqrt[]{2}
+  \end{array} \right]$\\ \\ \\
+
+\noindent
+\tab Hence the matrix of change of base $P = [B]^{-1}$  =
+\noindent
+$\left[ \begin{array}{ccc}
+   1 & \frac{1}{\sqrt[]{3}} & -1\\
+   0 & \frac{2}{\sqrt[]{3}} & 0\\
+   0 & 0 & \sqrt[]{2}
+  \end{array} \right]$\\ \\ \\
+\clearpage
+\section{Question}
+Computing the Kernel and Image of matrix of Linear Transformation.
+\subsection{Solution}
+\noindent
+\tab Given that the matrix of Linear Transformation, T is a Left Multiplication by \\ \\ 
+A=$\left[ \begin{array}{ccccc}
+  1 & 2 & 0 & -1 & 5\\
+  2 & 0 & 2 & 0 & 1\\
+  1 & 1 & -1 & 3 & 2\\
+  0 & 3 & -3 & 2 & 6\\
+  \end{array} \right]$\\
+
+\tab As per definition, the kernel of T is the set of solution to linear equation $AX=0$. To find such solution, let us reduce the matrix $A$ to its echelon form. Steps are as shown below\\
+\textnormal{$AX=0 \rightarrow $}
+ $\left[ \begin{array}{ccccc}
+  1 & 2 & 0 & -1 & 5\\
+  2 & 0 & 2 & 0 & 1\\
+  1 & 1 & -1 & 3 & 2\\
+  0 & 3 & -3 & 2 & 6\\
+  \end{array} \right]$
+  $\left[ \begin{array}{c}
+  x_1 \\ 
+  x_2 \\
+  x_3 \\
+  x_4 \\
+  x_5 \\
+  \end{array} \right]$
+	$=0$ 
+\\
+ $\left[ \begin{array}{ccccc}
+  1 & 2 & 0 & -1 & 5\\
+  0 & 4 & -2 & -2 & 9\\
+  0 & 1 & 1 & -4 & 3\\
+  0 & 3 & -3 & 2 & 6\\
+  \end{array} \right]$
+\textnormal{$R_2 \rightarrow 2R_1-R_2 \ \& R_3 \  \rightarrow R_1 - R_3$\\}
+\\ \\
+ $\left[ \begin{array}{ccccc}
+  1 & 2 & 0 & -1 & 5\\
+  0 & 1 & 1 & -4 & 3\\
+  0 & 4 & -2 & -2 & 9\\
+  0 & 3 & -3 & 2 & 6\\
+  \end{array} \right]$
+\textnormal{$R_2 \leftrightarrow R_3$\\}
+\\ \\
+ $\left[ \begin{array}{ccccc}
+  1 & 2 & 0 & -1 & 5\\
+  0 & 1 & 1 & -4 & 3\\
+  0 & 0 & 6 & -14 & 3\\
+  0 & 0 & 6 & -14 & 3\\
+  \end{array} \right]$
+\textnormal{$R_3 \rightarrow 4R_2-R_3 \ \& R_4 \  \rightarrow 3R_2 - R_4$\\}
+\\ \\
+ $\left[ \begin{array}{ccccc}
+  1 & 2 & 0 & -1 & 5\\
+  0 & 1 & 1 & -4 & 3\\
+  0 & 0 & 6 & -14 & 3\\
+  0 & 0 & 0 & 0 & 0\\
+  \end{array} \right]$
+\textnormal{$R_4 \  \rightarrow R_3 - R_4$\\}
+\\ \\
+ $\left[ \begin{array}{ccccc}
+  1 & 2 & 0 & -1 & 5\\
+  0 & 1 & 1 & -4 & 3\\
+  0 & 0 & 1 & -7/3 & 1/2\\
+  0 & 0 & 0 & 0 & 0\\
+  \end{array} \right]$
+\textnormal{$R_3 \  \rightarrow \frac{1}{6}R_4$\\}
+\\ \\
+ $\left[ \begin{array}{ccccc}
+  1 & 2 & 0 & -1 & 5\\
+  0 & 1 & 1 & -5/3 & 5/2\\
+  0 & 0 & 1 & -7/3 & 1/2\\
+  0 & 0 & 0 & 0 & 0\\
+  \end{array} \right]$
+\textnormal{$R_2 \  \rightarrow R_2 - R_3$\\}
+\\ \\
+ $\left[ \begin{array}{ccccc}
+  1 & 0 & 0 & 7/3 & 0\\
+  0 & 1 & 0 & -5/3 & 5/2\\
+  0 & 0 & 1 & -7/3 & 1/2\\
+  0 & 0 & 0 & 0 & 0\\
+  \end{array} \right]$
+\textnormal{$R_1 \  \rightarrow R_1 - 2R_2$\\}
+\\ \\
+\noindent \tab Thus our equation reduces to \\
+$$x_1 + \frac{7}{3}x_4 = 0 $$
+$$x_2- \frac{5}{3}x_4 + \frac{5}{2}x_5 = 0 $$
+$$x_3 - \frac{7}{3}x_4 + \frac{1}{2}x_5 = 0$$
+\noindent \tab Here we have three equations and five unknowns. Therefore, arbitrarily assuming values of $x_4$ and $x_5$ as $a$ and $b$ respectively, we get\\
+
+$$x_1 = \frac{7}{3}a \tab x_2 = \frac{5}{3}a + \frac{-5}{2}b \tab x_3 = \frac{7}{3}a + \frac{-1}{2}b \tab x_4 = a \tab x_5 = b $$
+\noindent \tab Therefore, we can write the solution as
+$\left[ \begin{array}{c}
+  \frac{7}{3}a\\
+ \frac{5}{3}a + \frac{-5}{2}b\\
+  \frac{7}{3}a + \frac{-1}{2}b\\
+  a\\
+  b\\
+  \end{array} \right] = a \times$ 
+  $\left[ \begin{array}{c}
+  -7/3\\
+ 5/3\\  
+  7/3\\ 
+  1\\ 
+  0\\ 
+  \end{array} \right] + b \times 
+  \left[ \begin{array}{c}
+  0\\
+ -5/2\\  
+  -1/2\\ 
+  0\\ 
+  1\\ 
+  \end{array} \right] $
+\\ \\
+\noindent \tab Hence, we can see that the basis of Ker T are $ \left[ \begin{array}{c}
+  -7/3\\
+ 5/3\\  
+  7/3\\ 
+  1\\ 
+  0\\ 
+  \end{array} \right] and
+  \left[ \begin{array}{c}
+  0\\
+ -5/2\\  
+  -1/2\\ 
+  0\\ 
+  1\\ 
+  \end{array} \right] $
+\\ \\
+\clearpage
+\noindent \tab As per definition, it follows that the basis of the image is the columns in the original matrix which correspond to the pivot columns in the row reduced matrix. In other words, Linearly independent vectors are those vectors in $A$ where the pivot elements in row reduced echelon form is 1.\\
+
+\noindent \tab  Therefore, the basis of Im T are 
+$\left[ \begin{array}{c}
+  1\\
+  2\\  
+  1\\ 
+  0\\ 
+  \end{array} \right] $
+,
+$\left[ \begin{array}{c}
+  2\\
+  0\\  
+  1\\ 
+  3\\ 
+  \end{array} \right] $
+and 
+$\left[ \begin{array}{c}
+  0\\
+  2\\  
+  -1\\ 
+  -3\\ 
+  \end{array} \right] $
+
+
+
+% --------------------------------------------------------------
+%     You don't have to mess with anything below this line.
+% --------------------------------------------------------------
+ 
+\end{document}
